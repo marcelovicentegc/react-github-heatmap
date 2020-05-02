@@ -1,6 +1,6 @@
 # react-github-heatmap
 
-A pluggable React component to display a GitHub-like contributions graph based on SVG.
+A plugable React component to display a GitHub-like contributions graph based on SVG.
 
 ## 🚧 Development directions
 

@@ -86,7 +86,7 @@ const Demo: React.FC = () => {
         <ForkMe />
         <div className="container">
           <h1>react-github-heatmap</h1>
-          <div>A pluggable React component to display a GitHub-like contributions graph</div>
+          <div>A plugable React component to display a GitHub-like contributions graph</div>
           <form onSubmit={updateUsername}>
             <input type="text" placeholder="Enter your GitHub username" ref={input} required />
             <button type="submit">Show calendar</button>
