@@ -11,7 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "deploy": "gh-pages -d example/build -b gh-pages -r https://${{secrets.GH_TOKEN}}@github.com/underworld-industries/react-github-heatmap.git",
+    "deploy": "gh-pages -d example/build -b gh-pages -r https://$GH_TOKEN@github.com/underworld-industries/react-github-heatmap.git",
     "format": "prettier --write './*' 'src/**/*' 'example/**/*'",
     "lint": "eslint 'src/**/*' 'example/**/*'",
     "predeploy": "cd example && yarn install && yarn run build",

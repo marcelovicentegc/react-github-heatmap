@@ -14,3 +14,5 @@ jobs:
       - run: yarn install
       - run: yarn predeploy
       - run: yarn deploy
+        env:
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
