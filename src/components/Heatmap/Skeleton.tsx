@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const animationName = 'react-github-calendar-loading';
+const animationName = 'react-github-heatmap-loading';
 
 function injectCSSAnimation() {
   const elem = document.createElement('style');

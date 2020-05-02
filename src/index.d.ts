@@ -1,8 +1,25 @@
 import React, { CSSProperties } from 'react';
 import { ColorInput } from 'tinycolor2';
 
+export type HeatmapData = {
+  years: {
+    year: string;
+    total: number;
+    range: {
+      start: string;
+      end: string;
+    };
+  }[];
+  contributions: {
+    date: string;
+    count: number;
+    color: string;
+    intensity: number;
+  }[];
+};
+
 export type Props = {
-  username: string;
+  data: HeatmapData;
   blockSize?: number;
   blockMargin?: number;
   color?: ColorInput;
@@ -31,7 +48,6 @@ declare function createCalendarTheme(
   background?: string,
 ): Theme;
 
-declare const GitHubCalendar: React.FC<Props>;
+declare const Heatmap: React.FC<Props>;
 
-export { createCalendarTheme };
-export default GitHubCalendar;
+export { createCalendarTheme, Heatmap };

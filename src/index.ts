@@ -1,5 +1,5 @@
-import GitHubCalendar from './components/GitHubCalendar/index';
+import { Heatmap } from './components/Heatmap';
 import { createCalendarTheme } from './utils';
 
 export { createCalendarTheme };
-export default GitHubCalendar;
+export { Heatmap };

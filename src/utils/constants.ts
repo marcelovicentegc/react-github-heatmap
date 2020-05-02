@@ -20,7 +20,7 @@ export const DEFAULT_THEME = {
   grade0: '#ebedf0',
 };
 
-export const NAMESPACE = 'react-github-calendar';
+export const NAMESPACE = 'react-github-heatmap';
 
 export const LINE_HEIGHT = 1.5;
 export const MIN_DISTANCE_MONTH_LABELS = 2;

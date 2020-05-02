@@ -33,13 +33,7 @@ export type MonthLabels = {
   label: string;
 }[];
 
-export type RequestOptions = {
-  fullYear: boolean;
-  username: string;
-  years: number[];
-};
-
-type ApiResult = {
+export type HeatmapData = {
   years: {
     year: string;
     total: number;
@@ -56,11 +50,17 @@ type ApiResult = {
   }[];
 };
 
-function getContributionsForDate(data: ApiResult, date: string) {
+export type RequestOptions = {
+  fullYear: boolean;
+  years: number[];
+  data: HeatmapData;
+};
+
+function getContributionsForDate(data: HeatmapData, date: string) {
   return data.contributions.find(contrib => contrib.date === date);
 }
 
-function getContributionCountForLastYear(data: ApiResult) {
+function getContributionCountForLastYear(data: HeatmapData) {
   const { contributions } = data;
   const now = new Date();
 
@@ -85,13 +85,13 @@ function getContributionCountForLastYear(data: ApiResult) {
   return contributions.slice(begin, end).reduce((acc, contrib) => acc + contrib.count, 0);
 }
 
-function getContributionCountForYear(data: ApiResult, year: number) {
+function getContributionCountForYear(data: HeatmapData, year: number) {
   const yearEntry = data.years.find(entry => entry.year === String(year));
 
   return yearEntry ? yearEntry.total : 0;
 }
 
-function getBlocksForYear(year: number, data: ApiResult, fullYear: boolean) {
+function getBlocksForYear(year: number, data: HeatmapData, fullYear: boolean) {
   const now = new Date();
   const firstDate = fullYear ? subYears(now, 1) : parseISO(`${year}-01-01`);
   const lastDate = fullYear ? now : parseISO(`${year}-12-31`);
@@ -159,7 +159,7 @@ function getMonthLabels(blocks: GraphData['blocks'], fullYear: boolean): MonthLa
   }, []);
 }
 
-function getGraphDataForYear(year: number, data: ApiResult, fullYear: boolean): GraphData {
+function getGraphDataForYear(year: number, data: HeatmapData, fullYear: boolean): GraphData {
   const blocks = getBlocksForYear(year, data, fullYear);
   const monthLabels = getMonthLabels(blocks, fullYear);
   const totalCount = fullYear
@@ -174,29 +174,8 @@ function getGraphDataForYear(year: number, data: ApiResult, fullYear: boolean): 
   };
 }
 
-const data: ApiResult = {
-  years: [
-    {
-      year: '2020',
-      total: 257,
-      range: {
-        start: '2020-01-01',
-        end: '2020-12-31',
-      },
-    },
-  ],
-  contributions: [
-    {
-      date: '2019-12-13',
-      count: 10,
-      color: '#239a3b',
-      intensity: 3,
-    },
-  ],
-};
-
 export function getGitHubGraphData(options: RequestOptions): GraphData[] {
-  const { fullYear, years } = options;
+  const { fullYear, years, data } = options;
 
   if (!data.years.length) {
     throw Error('No data available');

@@ -9,9 +9,9 @@ const style: CSSProperties = {
   color: '#151513',
 };
 
-const ForkMe: React.FC = () => (
+export const ForkMe: React.FC = () => (
   <a
-    href="https://github.com/grubersjoe/react-github-calendar"
+    href="https://github.com/underworld-industries/react-github-heatmap"
     className="github-corner"
     aria-label="View source on GitHub"
   >
@@ -31,5 +31,3 @@ const ForkMe: React.FC = () => (
     </svg>
   </a>
 );
-
-export default ForkMe;

@@ -1,11 +1,11 @@
-# React GitHub Calendar
+# react-github-heatmap
 
-A React component to display a GitHub contributions graph based on SVG.
+A pluggable React component to display a GitHub-like contributions graph based on SVG.
 
-![Screenshot](preview.png#1)
+## 🚧 Development directions
 
-[Demo and documentation](https://grubersjoe.github.io/react-github-calendar/)
-
-Library size: 14 KB (minified and gzipped)
-
-Supported browsers: Chrome, Firefox and Safari.
+1. Clone this repo: `git@github.com:underworld-industries/react-github-heatmap.git`
+2. Install dependencies: `yarn`
+3. Build the app: `yarn build`
+4. Change directory into `example` and install its dependencies: `cd example && yarn`
+5. From inside the `example` folder, start the app: `yarn start`

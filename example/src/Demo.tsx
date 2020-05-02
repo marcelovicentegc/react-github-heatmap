@@ -1,23 +1,83 @@
 import React, { useState, FormEventHandler } from 'react';
-import GitHubCalendar from 'react-github-calendar';
+import { Heatmap, HeatmapData } from 'react-github-heatmap';
 import ReactTooltip from 'react-tooltip';
 import { format } from 'date-fns';
 
 import 'typeface-public-sans';
 import './Demo.css';
 
-import CodeBlock from './CodeBlock';
-import ForkMe from './ForkMe';
+import { CodeBlock } from './CodeBlock';
+import { ForkMe } from './ForkMe';
+
+const initialState: HeatmapData = {
+  years: [
+    {
+      year: '2020',
+      total: 257,
+      range: {
+        start: '2020-01-01',
+        end: '2020-12-31',
+      },
+    },
+  ],
+  contributions: [
+    {
+      date: '2019-12-13',
+      count: 5,
+      color: '#239a3b',
+      intensity: 2,
+    },
+    {
+      date: '2019-12-14',
+      count: 10,
+      color: '#239a3b',
+      intensity: 3,
+    },
+    {
+      date: '2019-12-15',
+      count: 10,
+      color: '#239a3b',
+      intensity: 3,
+    },
+    {
+      date: '2019-12-18',
+      count: 15,
+      color: '#239a3b',
+      intensity: 3,
+    },
+    {
+      date: '2019-12-19',
+      count: 12,
+      color: '#239a3b',
+      intensity: 3,
+    },
+    {
+      date: '2019-12-22',
+      count: 1,
+      color: '#239a3b',
+      intensity: 1,
+    },
+    {
+      date: '2019-12-23',
+      count: 1,
+      color: '#239a3b',
+      intensity: 1,
+    },
+    {
+      date: '2019-12-24',
+      count: 7,
+      color: '#239a3b',
+      intensity: 2,
+    },
+  ],
+};
 
 const Demo: React.FC = () => {
-  const [username, setUsername] = useState('grubersjoe');
+  const [data] = useState<HeatmapData>(initialState);
   const input = React.createRef<HTMLInputElement>();
 
   const updateUsername: FormEventHandler = event => {
     event.preventDefault();
-    if (input.current) {
-      setUsername(String(input.current.value).toLowerCase());
-    }
   };
 
   return (
@@ -25,26 +85,44 @@ const Demo: React.FC = () => {
       <header>
         <ForkMe />
         <div className="container">
-          <h1>GitHub Contributions Calendar</h1>
-          <div>A React component to display a GitHub contributions graph</div>
+          <h1>react-github-heatmap</h1>
+          <div>A pluggable React component to display a GitHub-like contributions graph</div>
           <form onSubmit={updateUsername}>
             <input type="text" placeholder="Enter your GitHub username" ref={input} required />
             <button type="submit">Show calendar</button>
           </form>
         </div>
       </header>
-
       <main className="container">
-        <GitHubCalendar username={username} />
+        <Heatmap data={data} />
 
         <section>
           <h2>Installation</h2>
-          <CodeBlock style={{ marginTop: '0.5rem' }}>yarn install react-github-calendar</CodeBlock>
+          <CodeBlock style={{ marginTop: '0.5rem' }}>yarn install react-github-heatmap</CodeBlock>
           <p>Then in your code:</p>
           <CodeBlock>
-            {`import GitHubCalendar from 'react-github-calendar';
+            {`import React from 'react';
+import { Heatmap, HeatmapData } from 'react-github-heatmap';
+import { api } from './api';
 
-<GitHubCalendar username="${username}" />`}
+const App = () => {
+  const [data, setData] = React.useState<HeatmapData>();
+  React.useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async (): Promise<HeatmapData> => {
+    await api.getData().then(data => {
+      setData(data);
+    }).catch(error => { 
+      alert(error.message)
+    })
+  }
+
+  return (
+    <Heatmap data={data} />
+  )
+}`}
           </CodeBlock>
         </section>
 
@@ -62,11 +140,11 @@ const Demo: React.FC = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>username</td>
-                  <td>string</td>
+                  <td>data</td>
+                  <td>HeatmapData</td>
                   <td>-</td>
                   <td>
-                    A GitHub username (<em>required, obviously</em>)
+                    The heatmap data (<em>required</em>)
                   </td>
                 </tr>
                 <tr>
@@ -182,8 +260,8 @@ const Demo: React.FC = () => {
 
           <h3 id="show-contributions-of-last-year">Show contributions of last year</h3>
           <p>By default the last whole year is shown.</p>
-          <CodeBlock>{`<GitHubCalendar username="${username}" />`}</CodeBlock>
-          <GitHubCalendar username={username} />
+          <CodeBlock>{`<Heatmap data={data} />`}</CodeBlock>
+          <Heatmap data={data} />
 
           <hr />
 
@@ -192,17 +270,15 @@ const Demo: React.FC = () => {
             You might prefer the calendar for the current year to start in January (instead of
             showing the last twelve months).
           </p>
-          <CodeBlock>{`<GitHubCalendar username="${username}" fullYear={false} />`}</CodeBlock>
-          <GitHubCalendar username={username} fullYear={false} />
+          <CodeBlock>{`<Heatmap data={data} fullYear={false} />`}</CodeBlock>
+          <Heatmap data={data} fullYear={false} />
 
           <hr />
 
           <h3 id="show-several-years">Show several years</h3>
           <p>To display multiple years, pass an array into the component:</p>
-          <CodeBlock>
-            {`<GitHubCalendar username="${username}" years={[2018, 2017]} fullYear={false}/>`}
-          </CodeBlock>
-          <GitHubCalendar username={username} years={[2018, 2017]} fullYear={false} />
+          <CodeBlock>{`<Heatmap data={data} years={[2018, 2017]} fullYear={false}/>`}</CodeBlock>
+          <Heatmap data={data} years={[2018, 2017]} fullYear={false} />
 
           <hr />
 
@@ -213,8 +289,8 @@ const Demo: React.FC = () => {
             If a color is set, the theme will be ignored. If neither color or theme is set, the
             standard GitHub colors will be used (as in these examples).
           </p>
-          <CodeBlock>{`<GitHubCalendar username="${username}" color="hsl(203, 82%, 33%)" />`}</CodeBlock>
-          <GitHubCalendar username={username} color="hsl(203, 82%, 33%)" />
+          <CodeBlock>{`<Heatmap data={data} color="hsl(203, 82%, 33%)" />`}</CodeBlock>
+          <Heatmap data={data} color="hsl(203, 82%, 33%)" />
           <p>Set the colors explicitly like this:</p>
           <CodeBlock>
             {`const defaultTheme = {
@@ -227,9 +303,9 @@ const Demo: React.FC = () => {
   grade0: '#ebedf0',
 };
 
-<GitHubCalendar username="${username}" theme={defaultTheme} />`}
+<Heatmap data={data} theme={defaultTheme} />`}
           </CodeBlock>
-          <GitHubCalendar username={username} />
+          <Heatmap data={data} />
 
           <hr />
 
@@ -242,30 +318,30 @@ const Demo: React.FC = () => {
           </p>
           <CodeBlock>
             {`<div>
-    <GitHubCalendar username="${username}">
+    <Heatmap data={data}>
       <ReactTooltip delayShow={50} html />
-    </GitHubCalendar>
+    </Heatmap>
   </div>`}
           </CodeBlock>
           <div>
-            <GitHubCalendar username={username}>
+            <Heatmap data={data}>
               <ReactTooltip delayShow={50} html />
-            </GitHubCalendar>
+            </Heatmap>
           </div>
 
           <hr />
 
           <h3 id="different-block-size">Different block size</h3>
           <p>The block size (12 per default) is configurable:</p>
-          <CodeBlock>{`<GitHubCalendar username="${username}" blockSize={10} />`}</CodeBlock>
-          <GitHubCalendar username={username} blockSize={10} />
+          <CodeBlock>{`<Heatmap data={data} blockSize={10} />`}</CodeBlock>
+          <Heatmap data={data} blockSize={10} />
 
           <hr />
 
           <h3 id="different-block-margin">Different block margin (and size)</h3>
           <p>Analogously the block margin can be adjusted.</p>
-          <CodeBlock>{`<GitHubCalendar username="${username}" blockSize={10} blockMargin={4} />`}</CodeBlock>
-          <GitHubCalendar username={username} blockSize={10} blockMargin={4} />
+          <CodeBlock>{`<Heatmap data={data} blockSize={10} blockMargin={4} />`}</CodeBlock>
+          <Heatmap data={data} blockSize={10} blockMargin={4} />
 
           <hr />
 
@@ -275,8 +351,8 @@ const Demo: React.FC = () => {
             comes in handy, if a large block size or margin is set. The default base font size is
             14px.
           </p>
-          <CodeBlock>{`<GitHubCalendar username="${username}" fontSize={14} blockSize={12} />`}</CodeBlock>
-          <GitHubCalendar username={username} fontSize={14} blockSize={12} />
+          <CodeBlock>{`<Heatmap data={data} fontSize={14} blockSize={12} />`}</CodeBlock>
+          <Heatmap data={data} fontSize={14} blockSize={12} />
         </section>
       </main>
     </div>

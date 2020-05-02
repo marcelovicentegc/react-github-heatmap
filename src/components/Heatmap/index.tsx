@@ -14,11 +14,11 @@ import {
   Theme,
 } from '../../utils/constants';
 import { usePrevious } from '../../hooks/usePrevious';
-import { getGitHubGraphData, GraphData, Block } from '../../services/contributions';
+import { getGitHubGraphData, GraphData, Block, HeatmapData } from '../../services/contributions';
 import { createCalendarTheme, getClassName } from '../../utils';
 
 export type Props = {
-  username: string;
+  data: HeatmapData;
   blockSize?: number;
   blockMargin?: number;
   color?: ColorInput;
@@ -30,7 +30,7 @@ export type Props = {
   years?: number[];
 };
 
-const GitHubCalendar: React.FC<Props> = ({
+export const Heatmap: React.FC<Props> = ({
   blockSize = 12,
   blockMargin = 2,
   children,
@@ -39,7 +39,7 @@ const GitHubCalendar: React.FC<Props> = ({
   fontSize = 14,
   fullYear = true,
   theme = undefined,
-  username,
+  data,
   style = {},
   years = [Number(format(new Date(), 'yyyy'))],
 }) => {
@@ -47,19 +47,18 @@ const GitHubCalendar: React.FC<Props> = ({
   const [error, setError] = useState<Error | null>(null);
 
   const prevYears = usePrevious(years);
-  const prevUsername = usePrevious(username);
   const prevFullYear = usePrevious(fullYear);
 
   const fetchData = useCallback(() => {
     setError(null);
     setGraphs(
       getGitHubGraphData({
+        data,
         years,
-        username,
         fullYear,
       }),
     );
-  }, [years, username, fullYear]);
+  }, [years, data, fullYear]);
 
   // Fetch data on mount
   useEffect(() => {
@@ -68,14 +67,10 @@ const GitHubCalendar: React.FC<Props> = ({
 
   // Refetch if relevant props change
   useEffect(() => {
-    if (
-      prevFullYear !== fullYear ||
-      prevUsername !== username ||
-      prevYears.some(y => !years.includes(y))
-    ) {
+    if (prevFullYear !== fullYear || prevYears.some(y => !years.includes(y))) {
       fetchData();
     }
-  }, [fetchData, fullYear, prevFullYear, prevUsername, prevYears, username, years]);
+  }, [fetchData, fullYear, prevFullYear, prevYears, years]);
 
   function getTheme(): Theme {
     if (theme) {
@@ -200,5 +195,3 @@ const GitHubCalendar: React.FC<Props> = ({
     </article>
   );
 };
-
-export default GitHubCalendar;
