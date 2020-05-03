@@ -26,7 +26,7 @@ const App = () => {
     fetchData();
   }, []);
 
-  const fetchData = async (): Promise<HeatmapData> => {
+  const fetchData = async () => {
     await api
       .getData()
       .then(data => {
