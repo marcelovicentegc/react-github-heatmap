@@ -1,6 +1,6 @@
 {
   "name": "react-github-heatmap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": " A plugable React component to display a GitHub-like contributions graph",
   "author": "Marcelo Cardoso <marcelovicentegc@gmail.com>",
   "license": "MIT",
