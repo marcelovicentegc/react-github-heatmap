@@ -1,7 +1,7 @@
 {
   "name": "react-github-heatmap",
   "version": "1.0.1",
-  "description": " A plugable React component to display a GitHub-like contributions graph",
+  "description": " A plugable React component to display a general purpose GitHub-like contributions graph",
   "author": "Marcelo Cardoso <marcelovicentegc@gmail.com>",
   "license": "MIT",
   "homepage": "https://underworld-industries.github.io/react-github-heatmap/",
@@ -68,5 +68,15 @@
     "last 2 chrome version",
     "last 2 firefox version",
     "last 2 safari version"
+  ],
+  "keywords": [
+    "react",
+    "github",
+    "contributions",
+    "calendar",
+    "heatmap",
+    "component",
+    "svg",
+    "frontend"
   ]
 }

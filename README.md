@@ -2,7 +2,8 @@
 
 [![npm version](https://badge.fury.io/js/%40react-github-heatmap.svg)](https://www.npmjs.com/package/react-github-heatmap)
 
-A plugable React component to display a GitHub-like contributions graph based on SVG.
+A plugable React component to display a general purpose GitHub-like contributions graph based on
+SVG.
 
 ## 📦 Install
 
@@ -22,11 +23,13 @@ import { api } from './api';
 
 const App = () => {
   const [data, setData] = React.useState<HeatmapData>();
+  const [isLoading, setIsLoading] = useState(false);
   React.useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
+    setIsLoading(true);
     await api
       .getData()
       .then(data => {
@@ -34,10 +37,16 @@ const App = () => {
       })
       .catch(error => {
         alert(error.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
-  return <Heatmap data={data} />;
+  return (
+    <>
+      {isLoading && <span>Loading...</span>}
+      {data && <Heatmap data={data} />}
+    </>
+  );
 };
 ```
 

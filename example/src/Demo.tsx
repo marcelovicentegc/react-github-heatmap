@@ -29,7 +29,9 @@ const Demo: React.FC = () => {
         <ForkMe />
         <div className="container">
           <h1>react-github-heatmap</h1>
-          <div>A plugable React component to display a GitHub-like contributions graph</div>
+          <div>
+            A plugable React component to display a general purpose GitHub-like contributions graph
+          </div>
         </div>
       </header>
       <main className="container">
@@ -49,21 +51,26 @@ import { api } from './api';
 
 const App = () => {
   const [data, setData] = React.useState<HeatmapData>();
+  const [isLoading, setIsLoading] = useState(false);
   React.useEffect(() => {
     fetchData();
   }, [])
 
   const fetchData = async () => {
+    setIsLoading(true);
     await api.getData().then(data => {
       setData(data);
     }).catch(error => { 
       alert(error.message)
-    })
+    }).finally(() => setIsLoading(false))
   }
 
   return (
-    <Heatmap data={data} />
-  )
+    <>
+      {isLoading && <span>Loading...</span>}
+      {data && <Heatmap data={data} />}
+    </>
+    )
 }`}
           </CodeBlock>
         </section>
