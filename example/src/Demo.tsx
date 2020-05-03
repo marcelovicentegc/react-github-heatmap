@@ -1,7 +1,8 @@
-import React, { useState, FormEventHandler } from 'react';
+import React, { useState } from 'react';
 import { Heatmap, HeatmapData } from 'react-github-heatmap';
 import ReactTooltip from 'react-tooltip';
 import { format } from 'date-fns';
+import { Spinner } from '@fluentui/react';
 
 import 'typeface-public-sans';
 import './Demo.css';
@@ -9,76 +10,18 @@ import './Demo.css';
 import { CodeBlock } from './CodeBlock';
 import { ForkMe } from './ForkMe';
 
-const initialState: HeatmapData = {
-  years: [
-    {
-      year: '2020',
-      total: 257,
-      range: {
-        start: '2020-01-01',
-        end: '2020-12-31',
-      },
-    },
-  ],
-  contributions: [
-    {
-      date: '2019-12-13',
-      count: 5,
-      color: '#239a3b',
-      intensity: 2,
-    },
-    {
-      date: '2019-12-14',
-      count: 10,
-      color: '#239a3b',
-      intensity: 3,
-    },
-    {
-      date: '2019-12-15',
-      count: 10,
-      color: '#239a3b',
-      intensity: 3,
-    },
-    {
-      date: '2019-12-18',
-      count: 15,
-      color: '#239a3b',
-      intensity: 3,
-    },
-    {
-      date: '2019-12-19',
-      count: 12,
-      color: '#239a3b',
-      intensity: 3,
-    },
-    {
-      date: '2019-12-22',
-      count: 1,
-      color: '#239a3b',
-      intensity: 1,
-    },
-    {
-      date: '2019-12-23',
-      count: 1,
-      color: '#239a3b',
-      intensity: 1,
-    },
-    {
-      date: '2019-12-24',
-      count: 7,
-      color: '#239a3b',
-      intensity: 2,
-    },
-  ],
-};
-
 const Demo: React.FC = () => {
-  const [data] = useState<HeatmapData>(initialState);
-  // const input = React.createRef<HTMLInputElement>();
-
-  const updateUsername: FormEventHandler = event => {
-    event.preventDefault();
+  const [data, setData] = useState<HeatmapData>();
+  const [isLoading, setIsLoading] = useState(false);
+  const fetchData = async () => {
+    setIsLoading(true);
+    const data = await (await fetch('https://github-calendar.now.sh/v1/marcelovicentegc')).json();
+    setData(data);
+    setIsLoading(false);
   };
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -87,15 +30,11 @@ const Demo: React.FC = () => {
         <div className="container">
           <h1>react-github-heatmap</h1>
           <div>A plugable React component to display a GitHub-like contributions graph</div>
-          <form onSubmit={updateUsername}>
-            {/* <input type="text" placeholder="Enter your GitHub username" ref={input} required /> */}
-            {/* <button type="submit">Show calendar</button> */}
-          </form>
         </div>
       </header>
       <main className="container">
-        <Heatmap data={data} />
-
+        {isLoading && <Spinner />}
+        {data && <Heatmap data={data} />}
         <section>
           <h2>Installation</h2>
           <CodeBlock style={{ marginTop: '0.5rem' }}>
@@ -264,7 +203,8 @@ const App = () => {
           <h3 id="show-contributions-of-last-year">Show contributions of last year</h3>
           <p>By default the last whole year is shown.</p>
           <CodeBlock>{`<Heatmap data={data} />`}</CodeBlock>
-          <Heatmap data={data} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} />}
 
           <hr />
 
@@ -274,14 +214,16 @@ const App = () => {
             showing the last twelve months).
           </p>
           <CodeBlock>{`<Heatmap data={data} fullYear={false} />`}</CodeBlock>
-          <Heatmap data={data} fullYear={false} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} fullYear={false} />}
 
           <hr />
 
           <h3 id="show-several-years">Show several years</h3>
           <p>To display multiple years, pass an array into the component:</p>
           <CodeBlock>{`<Heatmap data={data} years={[2018, 2017]} fullYear={false}/>`}</CodeBlock>
-          <Heatmap data={data} years={[2018, 2017]} fullYear={false} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} years={[2018, 2017]} fullYear={false} />}
 
           <hr />
 
@@ -293,7 +235,8 @@ const App = () => {
             standard GitHub colors will be used (as in these examples).
           </p>
           <CodeBlock>{`<Heatmap data={data} color="hsl(203, 82%, 33%)" />`}</CodeBlock>
-          <Heatmap data={data} color="hsl(203, 82%, 33%)" />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} color="hsl(203, 82%, 33%)" />}
           <p>Set the colors explicitly like this:</p>
           <CodeBlock>
             {`const defaultTheme = {
@@ -308,7 +251,8 @@ const App = () => {
 
 <Heatmap data={data} theme={defaultTheme} />`}
           </CodeBlock>
-          <Heatmap data={data} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} />}
 
           <hr />
 
@@ -322,14 +266,17 @@ const App = () => {
           <CodeBlock>
             {`<div>
     <Heatmap data={data}>
-      <ReactTooltip delayShow={50} html />
+      <ReactTooltip delayShow={100} html />
     </Heatmap>
   </div>`}
           </CodeBlock>
           <div>
-            <Heatmap data={data}>
-              <ReactTooltip delayShow={50} html />
-            </Heatmap>
+            {isLoading && <Spinner />}
+            {data && (
+              <Heatmap data={data}>
+                <ReactTooltip delayShow={100} html />
+              </Heatmap>
+            )}
           </div>
 
           <hr />
@@ -337,14 +284,16 @@ const App = () => {
           <h3 id="different-block-size">Different block size</h3>
           <p>The block size (12 per default) is configurable:</p>
           <CodeBlock>{`<Heatmap data={data} blockSize={10} />`}</CodeBlock>
-          <Heatmap data={data} blockSize={10} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} blockSize={10} />}
 
           <hr />
 
           <h3 id="different-block-margin">Different block margin (and size)</h3>
           <p>Analogously the block margin can be adjusted.</p>
           <CodeBlock>{`<Heatmap data={data} blockSize={10} blockMargin={4} />`}</CodeBlock>
-          <Heatmap data={data} blockSize={10} blockMargin={4} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} blockSize={10} blockMargin={4} />}
 
           <hr />
 
@@ -355,7 +304,8 @@ const App = () => {
             14px.
           </p>
           <CodeBlock>{`<Heatmap data={data} fontSize={14} blockSize={12} />`}</CodeBlock>
-          <Heatmap data={data} fontSize={14} blockSize={12} />
+          {isLoading && <Spinner />}
+          {data && <Heatmap data={data} fontSize={14} blockSize={12} />}
         </section>
       </main>
     </div>

@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@fluentui/react": "^7.110.1",
     "date-fns": "link:../node_modules/date-fns",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",

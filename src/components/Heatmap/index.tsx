@@ -165,7 +165,7 @@ export const Heatmap: React.FC<Props> = ({
   }
 
   if (!graphs) {
-    return <div className={getClassName('loading', styles.loading)}>Loading …</div>;
+    return <div className={getClassName('loading', styles.loading)}>Loading...</div>;
   }
 
   return (
