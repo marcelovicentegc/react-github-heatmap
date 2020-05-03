@@ -23,7 +23,7 @@ header {
   align-items: center;
   justify-content: center;
   padding: 1.5rem 0.75rem;
-  background-image: linear-gradient(120deg, hsl(313, 49%, 18%), hsl(313, 78%, 20%));
+  background-image: linear-gradient(120deg, hsl(206, 100%, 42%), hsl(206, 100%, 36%));
   color: #fff;
   font-size: 110%;
   text-align: center;
@@ -94,7 +94,7 @@ pre {
   margin: 0 0 1.5rem;
   padding: 0.75em 1em;
   overflow-x: auto;
-  background: #440637;
+  background: #0084e9;
   border-radius: 0.2em;
   color: #fff;
 }

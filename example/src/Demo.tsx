@@ -98,7 +98,10 @@ const Demo: React.FC = () => {
 
         <section>
           <h2>Installation</h2>
-          <CodeBlock style={{ marginTop: '0.5rem' }}>yarn install react-github-heatmap</CodeBlock>
+          <CodeBlock style={{ marginTop: '0.5rem' }}>
+            {`yarn add react-github-heatmap
+npm i react-github-heatmap`}
+          </CodeBlock>
           <p>Then in your code:</p>
           <CodeBlock>
             {`import React from 'react';
@@ -111,7 +114,7 @@ const App = () => {
     fetchData();
   }, [])
 
-  const fetchData = async (): Promise<HeatmapData> => {
+  const fetchData = async () => {
     await api.getData().then(data => {
       setData(data);
     }).catch(error => { 
