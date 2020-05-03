@@ -74,7 +74,7 @@ const initialState: HeatmapData = {
 
 const Demo: React.FC = () => {
   const [data] = useState<HeatmapData>(initialState);
-  const input = React.createRef<HTMLInputElement>();
+  // const input = React.createRef<HTMLInputElement>();
 
   const updateUsername: FormEventHandler = event => {
     event.preventDefault();
@@ -88,8 +88,8 @@ const Demo: React.FC = () => {
           <h1>react-github-heatmap</h1>
           <div>A plugable React component to display a GitHub-like contributions graph</div>
           <form onSubmit={updateUsername}>
-            <input type="text" placeholder="Enter your GitHub username" ref={input} required />
-            <button type="submit">Show calendar</button>
+            {/* <input type="text" placeholder="Enter your GitHub username" ref={input} required /> */}
+            {/* <button type="submit">Show calendar</button> */}
           </form>
         </div>
       </header>

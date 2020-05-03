@@ -1,0 +1,1 @@
+gh-pages -d example/build -b gh-pages -r https://$GH_TOKEN@github.com/underworld-industries/react-github-heatmap.git
