@@ -43,7 +43,7 @@ const App = () => {
 
 ## 🚧 Development directions
 
-1. Clone this repo: `git@github.com:underworld-industries/react-github-heatmap.git`
+1. Clone this repo: `git clone git@github.com:underworld-industries/react-github-heatmap.git`
 2. Install dependencies: `yarn`
 3. Build the app: `yarn build`
 4. Change directory into `example` and install its dependencies: `cd example && yarn`
