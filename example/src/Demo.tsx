@@ -132,7 +132,7 @@ const App = () => {
                   <td>fontSize</td>
                   <td>number</td>
                   <td>14</td>
-                  <td>Base font size for text in chart. The title above (@user) is 25% larger.</td>
+                  <td>Base font size for text in chart.</td>
                 </tr>
                 <tr>
                   <td>fullYear</td>
