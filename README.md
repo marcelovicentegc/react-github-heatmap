@@ -58,4 +58,4 @@ const App = () => {
 4. Change directory into `example` and install its dependencies: `cd example && yarn`
 5. From inside the `example` folder, start the app: `yarn start`
 
-<a href="https://www.buymeacoffee.com/YkwcZVO" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/YkwcZVO" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="51"></a>
