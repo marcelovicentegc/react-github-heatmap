@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d35af9ba2e938363130e59fdce504bd2",
+    "revision": "068ca690bde62d27619bc611d743c40e",
     "url": "/react-github-heatmap/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-github-heatmap/static/css/2.13dc4fa8.chunk.css"
   },
   {
-    "revision": "0858b0648cc281198541",
+    "revision": "81d9a7f246f2b8599e00",
     "url": "/react-github-heatmap/static/css/main.e5fc49cc.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-github-heatmap/static/js/2.732e6e59.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0858b0648cc281198541",
-    "url": "/react-github-heatmap/static/js/main.f9a703bf.chunk.js"
+    "revision": "81d9a7f246f2b8599e00",
+    "url": "/react-github-heatmap/static/js/main.cd01791f.chunk.js"
   },
   {
     "revision": "30ecd445c03731a0e83e",
