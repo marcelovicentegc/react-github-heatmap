@@ -11,7 +11,7 @@ const style: CSSProperties = {
 
 export const ForkMe: React.FC = () => (
   <a
-    href="https://github.com/underworld-industries/react-github-heatmap"
+    href="https://github.com/marcelovicentegc/react-github-heatmap"
     className="github-corner"
     aria-label="View source on GitHub"
   >
